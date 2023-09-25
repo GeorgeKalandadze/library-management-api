@@ -1,7 +1,7 @@
 <?php
 
 test('new users can register', function () {
-    $response = $this->post('/register', [
+    $response = $this->post('/api/register', [
         'name' => 'Test User',
         'email' => 'test@example.com',
         'password' => 'password',
@@ -9,5 +9,5 @@ test('new users can register', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertNoContent();
+    $response->assertCreated();
 });
