@@ -12,17 +12,17 @@ class Book extends Model
 {
     use HasFactory;
 
-    public function scopeStatus(Builder $query, int $status)
+    public function scopeStatus(Builder $query, int $status): Builder
     {
         return $query->where('status', $status);
     }
 
-    public function scopeBooked(Builder $query)
+    public function scopeBooked(Builder $query): Builder
     {
         return $query->status(BookStatus::BOOKED->value);
     }
 
-    public function scopeAvailable(Builder $query)
+    public function scopeAvailable(Builder $query): Builder
     {
         return $query->status(BookStatus::AVAILABLE->value);
     }
