@@ -38,15 +38,14 @@ it('can create a book', function () {
             'authors' => [
                 '*' => [
                     'id',
-                    'name'
+                    'name',
                 ],
             ],
             'created_at',
-            'updated_at'
+            'updated_at',
         ]);
 
 });
-
 
 it('can show a book', function () {
     $book = Book::factory()->create();
@@ -77,11 +76,10 @@ it('can update a book', function () {
             'publish_date',
             'authors',
             'created_at',
-            'updated_at'
+            'updated_at',
         ]);
 
 });
-
 
 it('can delete a book', function () {
     $book = Book::factory()->create();

@@ -22,6 +22,7 @@ class BookController extends Controller
         $book = Book::create($request->all());
         $book->authors()->attach($request->authors);
         $book->load('authors');
+
         return response()->json(new BookResource($book), 201);
     }
 
@@ -38,6 +39,7 @@ class BookController extends Controller
         $book->update($request->all());
         $book->authors()->sync($request->authors);
         $book->load('authors');
+
         return response()->json(new BookResource($book), 201);
     }
 

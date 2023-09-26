@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\GetAuthorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::put('/{book}', [BookController::class, 'update'])->name('books.update');
             Route::delete('/{book}', [BookController::class, 'destroy'])->name('books.destroy');
         });
+        Route::get('authors', GetAuthorController::class);
     });
 });
 
