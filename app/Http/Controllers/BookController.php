@@ -7,14 +7,26 @@ use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class BookController extends Controller
 {
     public function index(): ResourceCollection
     {
-        $books = Book::with('authors')->get();
+        //        $books = Book::with('authors')->get();
+        //
+        //        return BookResource::collection($books);
 
-        return BookResource::collection($books);
+        $booksQuery = QueryBuilder::for(Book::class)
+            ->allowedFilters([
+                AllowedFilter::exact('title'),
+                AllowedFilter::exact('authors.name'),
+            ])
+            ->with('authors')
+            ->get();
+
+        return BookResource::collection($booksQuery);
     }
 
     public function store(BookRequest $request): JsonResponse
@@ -22,6 +34,7 @@ class BookController extends Controller
         $book = Book::create($request->all());
         $book->authors()->attach($request->authors);
         $book->load('authors');
+
         return response()->json(new BookResource($book), 201);
     }
 
@@ -38,6 +51,7 @@ class BookController extends Controller
         $book->update($request->all());
         $book->authors()->sync($request->authors);
         $book->load('authors');
+
         return response()->json(new BookResource($book), 201);
     }
 
