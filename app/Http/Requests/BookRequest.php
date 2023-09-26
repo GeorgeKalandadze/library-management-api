@@ -12,7 +12,7 @@ class BookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,7 @@ class BookRequest extends FormRequest
             'title' => 'required|string|max:255',
             'img_url' => 'nullable|url',
             'description' => 'required|string',
-            'status' => 'required|in:' . implode(',', BookStatus::toValues()),
+            'status' => 'in:'.BookStatus::AVAILABLE->value.','.BookStatus::BOOKED->value,
             'publish_date' => 'required|date',
             'authors' => 'required|array|min:1',
             'authors.*' => 'exists:authors,id',

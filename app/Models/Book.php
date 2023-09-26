@@ -17,7 +17,7 @@ class Book extends Model
         'img_url',
         'description',
         'status',
-        'publish_date'
+        'publish_date',
     ];
 
     public function scopeStatus(Builder $query, int $status): Builder

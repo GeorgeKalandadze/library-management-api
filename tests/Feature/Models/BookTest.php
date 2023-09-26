@@ -6,7 +6,6 @@ use App\Models\Book;
 
 it('can create a book', function () {
     $book = Book::factory()->create();
-
     expect($book)->toBeInstanceOf(Book::class);
 });
 
