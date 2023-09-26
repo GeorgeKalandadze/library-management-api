@@ -12,6 +12,14 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'img_url',
+        'description',
+        'status',
+        'publish_date'
+    ];
+
     public function scopeStatus(Builder $query, int $status): Builder
     {
         return $query->where('status', $status);
