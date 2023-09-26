@@ -17,27 +17,28 @@ class BookController extends Controller
         return BookResource::collection($books);
     }
 
-    public function store(BookRequest $request): BookResource
+    public function store(BookRequest $request): JsonResponse
     {
         $book = Book::create($request->all());
         $book->authors()->attach($request->authors);
-
-        return new BookResource($book);
+        $book->load('authors');
+        return response()->json(new BookResource($book), 201);
     }
 
-    public function show(Book $book): BookResource
+    public function show(Book $book): JsonResponse
     {
         $book->load('authors');
 
-        return new BookResource($book);
+        return response()->json(new BookResource($book), 201);
     }
 
-    public function update(BookRequest $request, Book $book): BookResource
+    public function update(BookRequest $request, Book $book): JsonResponse
     {
+
         $book->update($request->all());
         $book->authors()->sync($request->authors);
-
-        return new BookResource($book);
+        $book->load('authors');
+        return response()->json(new BookResource($book), 201);
     }
 
     public function destroy(Book $book): JsonResponse
