@@ -7,18 +7,12 @@ this is the laravel-management-api project for making science sweeft Acceleratio
 
 
 
-### Used technologies
+### Used packages
 
 - **[Sanctum for authorization](https://laravel.com/docs/10.x/sanctum)**
 - **[Pest for testing](https://pestphp.com/)**
 - **[Pint for code formatting](https://laravel.com/docs/10.x/pint)**
 - **[Spatie Query Builder for filters](https://spatie.be/docs/laravel-query-builder/v5/installation-setup)**
-
-### Running tests
-
-```bash
-php artisan test
-```
 
 
 ### Project setup
@@ -37,5 +31,16 @@ php artisan migrate:fresh --seed
 ```
 ```bash
 php artisan serve
+```
+### Running tests
+
+```bash
+php artisan test
+```
+
+### See available routes
+
+```bash
+php artisan route:list
 ```
 
