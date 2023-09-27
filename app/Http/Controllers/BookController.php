@@ -14,9 +14,6 @@ class BookController extends Controller
 {
     public function index(): ResourceCollection
     {
-        //        $books = Book::with('authors')->get();
-        //
-        //        return BookResource::collection($books);
 
         $booksQuery = QueryBuilder::for(Book::class)
             ->allowedFilters([
