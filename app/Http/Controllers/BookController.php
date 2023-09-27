@@ -27,8 +27,8 @@ class BookController extends Controller
 
     public function store(BookRequest $request): Response
     {
-        $book = Book::create($request->all());
-        $book->authors()->attach($request->authors);
+        $book = Book::create($request->validated());
+        $book->authors()->attach($request->validated('authors'));
         $book->load('authors');
 
         return $this->created(new BookResource($book));
@@ -44,8 +44,8 @@ class BookController extends Controller
     public function update(BookRequest $request, Book $book): Response
     {
 
-        $book->update($request->all());
-        $book->authors()->sync($request->authors);
+        $book->update($request->validated());
+        $book->authors()->sync($request->validated('authors'));
         $book->load('authors');
 
         return $this->ok(new BookResource($book));
