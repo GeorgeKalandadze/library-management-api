@@ -16,8 +16,8 @@ it('can list books', function () {
 
     $response
         ->assertStatus(200)
-        ->assertJsonCount(3, 'data')
-        ->assertJsonStructure(['data' => [['id', 'title', 'img_url', 'description', 'status', 'publish_date', 'authors', 'created_at', 'updated_at']]]);
+        ->assertJsonCount(3)
+        ->assertJsonStructure([['id', 'title', 'img_url', 'description', 'status', 'publish_date', 'authors', 'created_at', 'updated_at']]);
 });
 
 it('can create a book', function () {
@@ -53,7 +53,7 @@ it('can show a book', function () {
     $response = $this->get(route('books.show', $book));
 
     $response
-        ->assertStatus(201)
+        ->assertStatus(200)
         ->assertJson($book->toArray());
 });
 
@@ -66,7 +66,7 @@ it('can update a book', function () {
     $response = $this->put(route('books.update', $book), $updatedBookData);
 
     $response
-        ->assertStatus(201)
+        ->assertStatus(200)
         ->assertJsonStructure([
             'id',
             'title',
@@ -87,8 +87,7 @@ it('can delete a book', function () {
     $response = $this->delete(route('books.destroy', $book));
 
     $response
-        ->assertStatus(200)
-        ->assertJson(['message' => 'Book deleted successfully']);
+        ->assertStatus(204);
 
     $this->assertDatabaseMissing('books', ['id' => $book->id]);
 });

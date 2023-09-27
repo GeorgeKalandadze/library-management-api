@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookRequest;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Response;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class BookController extends Controller
 {
-    public function index(): ResourceCollection
+    public function index(): Response
     {
 
         $booksQuery = QueryBuilder::for(Book::class)
@@ -23,40 +22,40 @@ class BookController extends Controller
             ->with('authors')
             ->get();
 
-        return BookResource::collection($booksQuery);
+        return $this->ok(BookResource::collection($booksQuery));
     }
 
-    public function store(BookRequest $request): JsonResponse
+    public function store(BookRequest $request): Response
     {
         $book = Book::create($request->all());
         $book->authors()->attach($request->authors);
         $book->load('authors');
 
-        return response()->json(new BookResource($book), 201);
+        return $this->created(new BookResource($book));
     }
 
-    public function show(Book $book): JsonResponse
+    public function show(Book $book): Response
     {
         $book->load('authors');
 
-        return response()->json(new BookResource($book), 201);
+        return $this->ok(new BookResource($book));
     }
 
-    public function update(BookRequest $request, Book $book): JsonResponse
+    public function update(BookRequest $request, Book $book): Response
     {
 
         $book->update($request->all());
         $book->authors()->sync($request->authors);
         $book->load('authors');
 
-        return response()->json(new BookResource($book), 201);
+        return $this->ok(new BookResource($book));
     }
 
-    public function destroy(Book $book): JsonResponse
+    public function destroy(Book $book): Response
     {
         $book->authors()->detach();
         $book->delete();
 
-        return response()->json(['message' => 'Book deleted successfully']);
+        return $this->noContent();
     }
 }

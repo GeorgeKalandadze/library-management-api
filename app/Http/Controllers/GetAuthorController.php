@@ -11,6 +11,7 @@ class GetAuthorController extends Controller
     public function __invoke(): ResourceCollection
     {
         $authors = Author::all();
-        return AuthorResource::collection($authors );
+
+        return AuthorResource::collection($authors);
     }
 }
