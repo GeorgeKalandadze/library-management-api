@@ -13,8 +13,3 @@ class GetAuthorController extends Controller
         $authors = Author::all();
 <<<<<<< HEAD
 
-=======
->>>>>>> origin/main
-        return AuthorResource::collection($authors);
-    }
-}
